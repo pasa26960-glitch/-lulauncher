@@ -1,16 +1,60 @@
-name: Build APK
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ArtemSBulgakov/buildozer-action@v2
-        id: buildozer
-      - uses: actions/upload-artifact@v4
-        with:
-          name: app
-          path: ${{ steps.buildozer.outputs.filename }}
+[app]
+
+# Название приложения (как будет отображаться на телефоне)
+title = LULAUNCHER
+
+# Внутреннее имя пакета
+package.name = lulauncher
+
+# Домен (можно оставить как есть)
+package.domain = org.example
+
+# Откуда брать исходники
+source.dir = .
+
+# Какие файлы включать
+source.include_exts = py,png,jpg,kv,atlas
+
+# Версия
+version = 1.5.0
+
+# Требования (библиотеки)
+requirements = python3,kivy==2.3.0
+
+# Ориентация экрана
+orientation = portrait
+
+# Разрешения для Android
+android.permissions = INTERNET
+
+# Версия Android SDK
+android.api = 33
+
+# Версия NDK
+android.ndk = 25b
+
+# Архитектуры процессора (поддерживает большинство телефонов)
+android.archs = arm64-v8a, armeabi-v7a
+
+# Минимальная версия Android
+android.minapi = 21
+
+# Логотип приложения (если есть)
+# android.icon = icon.png
+
+# Настройка для отладки
+fullscreen = 1
+
+# Показывать экран загрузки
+presplash.filename = %(source.dir)s/data/presplash.png
+
+# Иконка приложения
+icon.filename = %(source.dir)s/data/icon.png
+
+[buildozer]
+
+# Уровень логов (1-тихо, 2-нормально, 3-много)
+log_level = 2
+
+# Предупреждение о root
+warn_on_root = 1
